@@ -1,0 +1,18 @@
+# Backup / scratch files
+*.bak
+*.backup
+*.session-bak
+script.js.backup
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Optional personal media (uncomment to keep photos/music out of the repo)
+# photo*.jpg
+# photo*.png
+# music.mp3
+# music.ogg

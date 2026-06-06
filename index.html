@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="enhancements.css">
+</head>
+<body>
+    <!-- Animated Background Container -->
+    <div id="background-container">
+        <div id="stars-container"></div>
+        <div id="shooting-stars-container"></div>
+        <div id="hearts-container"></div>
+        <div id="fireworks-container"></div>
+        <div id="balloons-container"></div>
+        <div id="petals-container"></div>
+        <div id="particles-container"></div>
+        <div id="light-rays-container"></div>
+    </div>
+
+    <!-- Sound Toggle Button -->
+    <button id="sound-toggle" class="sound-toggle" title="Toggle Sound Effects">🔇</button>
+
+    <!-- Music Toggle Button -->
+    <button id="music-toggle" class="music-toggle" title="Toggle Music">🎵</button>
+    <audio id="bg-music" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="music.ogg" type="audio/ogg">
+    </audio>
+
+    <!-- Progress Indicator -->
+    <div id="progress-indicator" class="progress-indicator">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        <span class="progress-text" id="progress-text">0%</span>
+    </div>
+
+    <!-- Love Meter -->
+    <div id="love-meter" class="love-meter">
+        <div class="love-meter-fill" id="love-meter-fill"></div>
+        <span class="love-meter-label">💖 Love Meter</span>
+    </div>
+
+    <!-- Boot Screen -->
+    <div id="boot-screen" class="screen active">
+        <div class="boot-content">
+            <div class="boot-logo">💖</div>
+            <div class="boot-text" id="boot-text"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="boot-status" id="boot-status"></div>
+        </div>
+    </div>
+
+    <!-- Pixel Character Scene -->
+    <div id="character-scene" class="screen">
+        <div class="characters-container">
+            <div class="pixel-character character-1">
+                <div class="character-body">
+                    <div class="character-head">
+                        <div class="character-eyes">
+                            <div class="eye left"></div>
+                            <div class="eye right"></div>
+                        </div>
+                        <div class="character-mouth"></div>
+                    </div>
+                    <div class="character-torso"></div>
+                    <div class="character-legs">
+                        <div class="leg left"></div>
+                        <div class="leg right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pixel-character character-2">
+                <div class="character-body">
+                    <div class="character-head">
+                        <div class="character-eyes">
+                            <div class="eye left"></div>
+                            <div class="eye right"></div>
+                        </div>
+                        <div class="character-mouth"></div>
+                    </div>
+                    <div class="character-torso"></div>
+                    <div class="character-legs">
+                        <div class="leg left"></div>
+                        <div class="leg right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RPG Dialogue Box -->
+        <div class="dialogue-box">
+            <div class="dialogue-header">
+                <span class="dialogue-name">💕</span>
+                <div class="dialogue-indicator">▼</div>
+            </div>
+            <div class="dialogue-content">
+                <p id="dialogue-text"></p>
+            </div>
+            <button id="skip-dialogue-btn" class="skip-dialogue-btn">Skip ⏭️</button>
+        </div>
+    </div>
+
+    <!-- Floating Characters Container (Post-Dialogue) -->
+    <div id="floating-characters-container" class="floating-characters-container">
+        <div class="floating-pixel-character floating-char-1">
+            <div class="character-body">
+                <div class="character-head">
+                    <div class="character-eyes">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                    </div>
+                    <div class="character-mouth"></div>
+                </div>
+                <div class="character-torso"></div>
+                <div class="character-legs">
+                    <div class="leg left"></div>
+                    <div class="leg right"></div>
+                </div>
+            </div>
+        </div>
+        <div class="floating-pixel-character floating-char-2">
+            <div class="character-body">
+                <div class="character-head">
+                    <div class="character-eyes">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                    </div>
+                    <div class="character-mouth"></div>
+                </div>
+                <div class="character-torso"></div>
+                <div class="character-legs">
+                    <div class="leg left"></div>
+                    <div class="leg right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Page -->
+    <div id="question-page" class="screen">
+        <div class="question-container">
+            <div class="question-text">
+                Nibihah, will you give me a chance to be your man,<br>
+                to grow with you and make you mine?
+            </div>
+            <div class="buttons-container">
+                <button id="yes-btn" class="proposal-btn yes-btn">YES</button>
+                <button id="no-btn" class="proposal-btn no-btn">NO</button>
+            </div>
+            <div id="no-message" class="no-message"></div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="nav-btn-row">
+            <button id="love-letters-btn" class="love-letters-nav-btn">
+                💌 Love Letters
+            </button>
+            <button id="gallery-btn" class="love-letters-nav-btn nav-btn-alt">
+                📸 Our Memories
+            </button>
+            <button id="timeline-btn" class="love-letters-nav-btn nav-btn-alt2">
+                🗓️ Our Story
+            </button>
+        </div>
+    </div>
+
+    <!-- Celebration Page -->
+    <div id="celebration-page" class="screen">
+        <div class="celebration-content">
+            <div class="celebration-hearts">💖💕💖</div>
+            <h1 class="celebration-title">Nibihah Chose YES!</h1>
+            <p class="celebration-subtitle">And I'll choose you every day 💖</p>
+            <div class="celebration-message">
+                <p>Thank you, Nibihah, for giving me this chance.</p>
+                <p>I promise to cherish every moment with you.</p>
+                <p>Together, we'll create the most beautiful story.</p>
+            </div>
+            <div class="celebration-hearts">💕💖💕</div>
+            <button id="keepsake-btn" class="keepsake-btn">💝 Save Our Moment</button>
+        </div>
+        <div id="confetti-container"></div>
+    </div>
+
+    <!-- Love Letters Page -->
+    <div id="love-letters-page" class="screen">
+        <div class="love-letters-container">
+            <!-- Header -->
+            <div class="love-letters-header">
+                <h1 class="love-letters-title">💌 My Love Letters For Nibihah</h1>
+                <p class="love-letters-subtitle" id="love-letters-subtitle">letters from my heart to yours</p>
+                <button id="close-letters-btn" class="close-letters-btn">✕</button>
+            </div>
+
+            <!-- Display Mode Selector -->
+            <div class="display-mode-selector">
+                <button class="mode-btn active" data-mode="envelope">📬 Envelopes</button>
+                <button class="mode-btn" data-mode="cards">🃏 Cards</button>
+                <button class="mode-btn" data-mode="book">📖 Book</button>
+            </div>
+
+            <!-- Letters Progress -->
+            <div class="letters-progress">
+                <span class="letters-read-count">0/0 Read</span>
+                <div class="letters-progress-bar">
+                    <div class="letters-progress-fill" id="letters-progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Envelopes Display Mode -->
+            <div id="envelopes-display" class="letters-display active">
+                <div class="envelopes-grid" id="envelopes-grid">
+                    <!-- Envelopes will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Cards Display Mode -->
+            <div id="cards-display" class="letters-display">
+                <div class="cards-grid" id="cards-grid">
+                    <!-- Cards will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Book Display Mode -->
+            <div id="book-display" class="letters-display">
+                <div class="book-container">
+                    <div class="book" id="book">
+                        <div class="book-page left-page" id="book-left-page">
+                            <div class="page-content">
+                                <h2 class="page-title"></h2>
+                                <p class="page-date"></p>
+                                <div class="page-text"></div>
+                            </div>
+                        </div>
+                        <div class="book-spine"></div>
+                        <div class="book-page right-page" id="book-right-page">
+                            <div class="page-content">
+                                <h2 class="page-title"></h2>
+                                <p class="page-date"></p>
+                                <div class="page-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="book-controls">
+                        <button id="prev-page-btn" class="book-nav-btn">◀ Previous</button>
+                        <span class="page-indicator" id="page-indicator">1-2 of 20</span>
+                        <button id="next-page-btn" class="book-nav-btn">Next ▶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Letter Modal -->
+            <div id="letter-modal" class="letter-modal">
+                <div class="letter-modal-content">
+                    <button id="close-modal-btn" class="close-modal-btn">✕</button>
+                    <div class="letter-paper">
+                        <div class="letter-header">
+                            <h2 class="letter-title" id="modal-letter-title"></h2>
+                            <p class="letter-date" id="modal-letter-date"></p>
+                        </div>
+                        <div class="letter-body">
+                            <p class="letter-text" id="modal-letter-text"></p>
+                        </div>
+                        <div class="letter-footer">
+                            <button id="prev-letter-btn" class="letter-nav-btn">◀ Previous</button>
+                            <button id="favorite-btn" class="favorite-btn">☆ Favorite</button>
+                            <button id="next-letter-btn" class="letter-nav-btn">Next ▶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Random Letter Button -->
+            <button id="random-letter-btn" class="random-letter-btn">🎲 Random Letter</button>
+        </div>
+
+        <!-- Floating Letters Background -->
+        <div id="floating-letters-container"></div>
+    </div>
+
+    <!-- Photo Memory Gallery Page -->
+    <div id="gallery-page" class="screen">
+        <div class="gallery-container">
+            <div class="gallery-header">
+                <h1 class="gallery-title">📸 Our Memories</h1>
+                <p class="gallery-subtitle">Every moment with you, Nibihah</p>
+                <button id="close-gallery-btn" class="close-letters-btn">✕</button>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Photos generated by JavaScript -->
+            </div>
+            <div class="gallery-hint" id="gallery-hint"></div>
+        </div>
+        <!-- Lightbox -->
+        <div id="gallery-lightbox" class="gallery-lightbox">
+            <button id="close-lightbox-btn" class="close-modal-btn">✕</button>
+            <button id="prev-photo-btn" class="lightbox-nav prev">◀</button>
+            <div class="lightbox-content">
+                <div class="lightbox-image" id="lightbox-image"></div>
+                <div class="lightbox-caption" id="lightbox-caption"></div>
+            </div>
+            <button id="next-photo-btn" class="lightbox-nav next">▶</button>
+        </div>
+    </div>
+
+    <!-- Timeline (Our Story) Page -->
+    <div id="timeline-page" class="screen">
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <h1 class="timeline-title">🗓️ Our Story</h1>
+                <p class="timeline-subtitle">How we became us</p>
+                <button id="close-timeline-btn" class="close-letters-btn">✕</button>
+            </div>
+            <div class="timeline-track" id="timeline-track">
+                <!-- Milestones generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Keepsake Modal -->
+    <div id="keepsake-modal" class="keepsake-modal">
+        <div class="keepsake-modal-content">
+            <button id="close-keepsake-btn" class="close-modal-btn">✕</button>
+            <div class="keepsake-card" id="keepsake-card">
+                <div class="keepsake-hearts">💖</div>
+                <h2 class="keepsake-headline">For Nibihah</h2>
+                <p class="keepsake-body" id="keepsake-body"></p>
+                <p class="keepsake-date" id="keepsake-date"></p>
+            </div>
+            <button id="download-keepsake-btn" class="download-keepsake-btn">⬇️ Download Keepsake</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="enhancements.js"></script>
+</body>
+</html>
