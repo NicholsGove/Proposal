@@ -242,7 +242,7 @@ function startBootScreen() {
                 if (charIndex < text.length) {
                     bootText.textContent += text.charAt(charIndex);
                     charIndex++;
-                    setTimeout(typeChar, 50);
+                    setTimeout(typeChar, 16);
                 } else {
                     // Update progress bar
                     progress = ((textIndex + 1) / variant.loadingTexts.length) * 100;
@@ -252,7 +252,7 @@ function startBootScreen() {
                     bootStatus.textContent = `${Math.round(progress)}% Complete`;
                     
                     textIndex++;
-                    setTimeout(typeLoadingText, 800);
+                    setTimeout(typeLoadingText, 220);
                 }
             }
             
@@ -262,7 +262,7 @@ function startBootScreen() {
             setTimeout(() => {
                 transitionToScreen('character-scene');
                 startDialogue();
-            }, 1000);
+            }, 350);
         }
     }
     
@@ -704,19 +704,19 @@ function transitionToScreen(screenId) {
     
     // Fade out current screen
     currentScreenEl.classList.add('fade-out');
-    
+
     setTimeout(() => {
         currentScreenEl.classList.remove('active', 'fade-out');
-        
+
         // Fade in next screen
         nextScreenEl.classList.add('active', 'fade-in');
-        
+
         setTimeout(() => {
             nextScreenEl.classList.remove('fade-in');
-        }, 1000);
-        
+        }, 400);
+
         currentScreen = screenId;
-    }, 1000);
+    }, 400);
 }
 
 // ============================================
