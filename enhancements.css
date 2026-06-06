@@ -743,3 +743,9 @@ body::after {
     .nav-btn-row { gap: 6px; }
     .love-letters-nav-btn { font-size: 8px !important; padding: 9px 8px !important; }
 }
+
+/* ============================================================
+   Remove the audio toggle buttons (they overlapped the page
+   close buttons). Audio now just plays on its own.
+   ============================================================ */
+#music-toggle, #sound-toggle { display: none !important; }

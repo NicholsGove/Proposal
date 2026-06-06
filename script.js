@@ -190,7 +190,7 @@ let currentScreen = 'boot-screen';
 let noMessageIndex = 0;
 let usedNoMessages = [];
 let animationFrameId = null;
-let soundEnabled = false;
+let soundEnabled = true;
 let mouseX = 0;
 let mouseY = 0;
 let dialogueLineIndex = 0;
@@ -1124,7 +1124,10 @@ function setupCharacterFollowMouse() {
 // Sound Effects (Simple beep sounds using Web Audio API)
 function playSound(type) {
     if (!soundEnabled) return;
-    
+    // Skip the rapid typewriter blips so the experience stays pleasant
+    // (music + gentle click/celebration sounds still play).
+    if (type === 'typing') return;
+
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
