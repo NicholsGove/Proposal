@@ -473,3 +473,183 @@ body::after {
     body::before, .yes-btn, .celebration-title, .timeline-dot,
     .music-toggle.playing, .keepsake-btn { animation: none !important; }
 }
+
+/* ============================================================
+   ✨ ENHANCED PIXEL CHARACTERS (dialogue + floating)
+   Cuter faces, hair, blush, arms, shadow — and a kissing
+   reaction where the faces actually change.
+   ============================================================ */
+
+/* depth shadow on the whole little body */
+.character-body { filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.22)); }
+
+/* soft ground shadow under the feet */
+.character-body::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; left: 50%;
+    transform: translateX(-50%);
+    width: 58px; height: 9px;
+    background: rgba(0,0,0,0.32);
+    border-radius: 50%;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+/* ---- Eyes: rounder, shinier, with a highlight -------------- */
+.character-1 .character-eyes .eye,
+.character-2 .character-eyes .eye,
+.floating-char-1 .character-eyes .eye,
+.floating-char-2 .character-eyes .eye {
+    width: 11px; height: 12px;
+    background: #2c2740;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: none;
+}
+.character-eyes .eye::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 4px; height: 4px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* ---- Blush cheeks (on the eyes container) ------------------ */
+.character-eyes { position: relative; }
+.character-eyes::before,
+.character-eyes::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    width: 10px; height: 6px;
+    background: rgba(255,120,150,0.55);
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+.character-eyes::before { left: 1px; }
+.character-eyes::after  { right: 1px; }
+
+/* ---- Arms on the torso ------------------------------------- */
+.character-torso { position: relative; }
+.character-torso::before,
+.character-torso::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    width: 8px; height: 26px;
+    background: #ffdbac;
+    border-radius: 6px;
+    box-shadow: inset -2px 0 0 rgba(0,0,0,0.08);
+}
+.character-torso::before { left: -9px; }
+.character-torso::after  { right: -9px; }
+
+/* ---- Hair --------------------------------------------------- */
+/* Character 1 (short, dark hair) */
+.character-1 .character-head::before,
+.floating-char-1 .character-head::before {
+    content: '';
+    position: absolute;
+    top: -7px; left: -3px;
+    width: 66px; height: 19px;
+    background: #241a14;
+    border-radius: 14px 14px 4px 4px;
+    z-index: 3;
+}
+/* Character 2 (auburn fringe + side strands framing the face) */
+.character-2 .character-head::before,
+.floating-char-2 .character-head::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -5px;
+    width: 70px; height: 21px;
+    background: #6b3a25;
+    border-radius: 18px 18px 8px 8px;
+    z-index: 3;
+}
+.character-2 .character-head::after,
+.floating-char-2 .character-head::after {
+    content: '';
+    position: absolute;
+    top: 4px; left: -6px;
+    width: 8px; height: 34px;
+    background: #5a3120;
+    border-radius: 6px;
+    box-shadow: 70px 0 0 #5a3120;  /* mirrored right-side strand */
+    z-index: 2;
+}
+/* Character 2 gets a little flared dress */
+.character-2 .character-torso,
+.floating-char-2 .character-torso {
+    width: 54px;
+    border-radius: 5px 5px 16px 16px;
+}
+
+/* ============================================================
+   💋 KISSING REACTION — the faces change
+   (JS adds .kissing to the floating characters for ~2s)
+   ============================================================ */
+
+/* eyes squeeze shut into happy upward arcs */
+.kissing .character-eyes .eye {
+    width: 13px; height: 7px;
+    background: transparent !important;
+    border: 3px solid #2c2740;
+    border-bottom: none;
+    border-radius: 13px 13px 0 0;
+    box-shadow: none !important;
+    animation: none !important;
+}
+.kissing .character-eyes .eye::after { display: none; }  /* hide highlight while closed */
+
+/* big bright blush */
+.kissing .character-eyes::before,
+.kissing .character-eyes::after {
+    background: rgba(255,70,110,0.9);
+    width: 12px; height: 8px;
+    box-shadow: 0 0 6px rgba(255,70,110,0.7);
+}
+
+/* puckered lips */
+.kissing .character-mouth {
+    width: 9px; height: 9px;
+    background: #ff2e6b !important;
+    border-radius: 50% !important;
+    margin: 6px auto 0;
+    box-shadow: 0 0 5px rgba(255,46,107,0.8);
+    animation: kissPucker 0.6s ease-in-out infinite !important;
+}
+@keyframes kissPucker {
+    0%, 100% { transform: scale(0.85); }
+    50% { transform: scale(1.35); }
+}
+
+/* heads lean toward each other */
+.floating-char-1.kissing .character-head { animation: tiltRight 2s ease-in-out; }
+.floating-char-2.kissing .character-head { animation: tiltLeft 2s ease-in-out; }
+@keyframes tiltRight { 0%,100% { transform: rotate(0); } 40%,70% { transform: rotate(12deg); } }
+@keyframes tiltLeft  { 0%,100% { transform: rotate(0); } 40%,70% { transform: rotate(-12deg); } }
+
+/* a heart pops up between them */
+.kissing .character-body::before {
+    content: '💗';
+    position: absolute;
+    top: -24px; left: 50%;
+    font-size: 22px;
+    transform: translateX(-50%) scale(0);
+    animation: kissHeartPop 2s ease-in-out;
+    z-index: 6;
+}
+@keyframes kissHeartPop {
+    0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(0); }
+    35%  { opacity: 1; transform: translateX(-50%) translateY(-6px) scale(1.25); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-26px) scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kissing .character-mouth, .floating-char-1.kissing .character-head,
+    .floating-char-2.kissing .character-head, .kissing .character-body::before { animation: none !important; }
+}

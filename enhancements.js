@@ -18,14 +18,14 @@ const PERSON_NAME = (typeof HER_NAME !== 'undefined') ? HER_NAME : 'My Love';
 
 // ---- Photo gallery data ------------------------------------
 const galleryPhotos = [
-    { file: 'photo1.jpg', caption: 'The day everything changed 💖' },
-    { file: 'photo2.jpg', caption: 'Your smile, my favorite view' },
-    { file: 'photo3.jpg', caption: 'Lost in the moment with you' },
-    { file: 'photo4.jpg', caption: 'Every adventure is better together' },
-    { file: 'photo5.jpg', caption: 'Just us, just happy' },
-    { file: 'photo6.jpg', caption: 'My whole world in one frame' },
-    { file: 'photo7.jpg', caption: 'Forever starts here' },
-    { file: 'photo8.jpg', caption: 'And so many more to come...' }
+    { file: 'photo1.jpeg', caption: 'The day everything changed 💖' },
+    { file: 'photo2.jpeg', caption: 'Your smile, my favorite view' },
+    { file: 'photo3.jpeg', caption: 'Lost in the moment with you' },
+    { file: 'photo4.jpeg', caption: 'Every adventure is better together' },
+    { file: 'photo5.jpeg', caption: 'Just us, just happy' },
+    { file: 'photo6.jpeg', caption: 'My whole world in one frame' },
+    { file: 'photo7.jpeg', caption: 'Forever starts here' },
+    { file: 'photo8.jpeg', caption: 'And so many more to come...' }
 ];
 
 // ---- Timeline milestones (edit freely) ---------------------
@@ -138,14 +138,14 @@ function buildGallery() {
     updateGalleryHint();
 }
 
-function updateGalleryHint() {
+ function updateGalleryHint() {
     const hint = document.getElementById('gallery-hint');
     if (!hint) return;
     const any = galleryLoaded.some(Boolean);
     hint.innerHTML = any
-        ? '💡 Tip: add or swap photos by replacing photo1.jpg … photo8.jpg in this folder.'
+        ? '💡 Tip: Just showing you a little something'
         : '💡 No photos yet — drop <strong>photo1.jpg</strong> … <strong>photo8.jpg</strong> into this folder and they\'ll appear here automatically.';
-}
+} 
 
 function animateGalleryIn() {
     const items = document.querySelectorAll('.gallery-item');
@@ -250,7 +250,6 @@ let synthGain = null;
 
 function setupMusic() {
     const btn = document.getElementById('music-toggle');
-    const audio = document.getElementById('bg-music');
     if (!btn) return;
 
     btn.addEventListener('click', () => {
@@ -261,33 +260,53 @@ function setupMusic() {
         }
     });
 
-    // Detect whether a real audio file exists.
-    if (audio) {
-        audio.addEventListener('canplaythrough', () => { musicMode = 'file'; }, { once: true });
-        audio.addEventListener('error', () => { if (musicMode !== 'file') musicMode = 'synth'; });
-    }
+    // Auto-start on the first interaction anywhere on the page, so the music
+    // begins naturally during the proposal. (Browsers require a user gesture
+    // before audio can play, which the first click/keypress satisfies.)
+    const autoStart = () => {
+        document.removeEventListener('click', autoStart);
+        document.removeEventListener('keydown', autoStart);
+        if (!musicPlaying) startMusic();
+    };
+    document.addEventListener('click', autoStart, { once: true });
+    document.addEventListener('keydown', autoStart, { once: true });
 }
 
 function startMusic() {
     const btn = document.getElementById('music-toggle');
     const audio = document.getElementById('bg-music');
 
-    const tryFile = audio && audio.querySelector('source') && musicMode !== 'synth';
-    if (tryFile) {
-        audio.volume = 0.0;
-        const p = audio.play();
-        if (p && p.then) {
+    // Always try the real audio file first.
+    if (audio && audio.querySelector('source')) {
+        audio.volume = 0.5;
+        let p;
+        try { p = audio.play(); } catch (e) { p = null; }
+
+        if (p && typeof p.then === 'function') {
             p.then(() => {
+                // The file is actually playing.
                 musicMode = 'file';
-                fadeAudio(audio, 0.45, 1500);
                 setMusicOn(btn);
-            }).catch(() => {
+            }).catch((err) => {
+                // File missing / wrong name / unsupported -> gentle built-in melody.
+                console.warn('[music] Could not play "music.mp3" (' +
+                    (err && err.message ? err.message : 'unknown') +
+                    '). Make sure the file is named exactly "music.mp3" and sits in the same folder. Falling back to the built-in melody.');
                 playSynth();
                 setMusicOn(btn);
             });
             return;
         }
+
+        // Older browsers without a play() promise.
+        if (!audio.error) {
+            musicMode = 'file';
+            setMusicOn(btn);
+            return;
+        }
     }
+
+    // No <audio>/source at all -> built-in melody.
     playSynth();
     setMusicOn(btn);
 }

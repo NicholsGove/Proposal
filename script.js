@@ -1331,10 +1331,22 @@ function setupDisplayModeSelector() {
             modeButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             
-            // Update active display
-            displays.forEach(display => display.classList.remove('active'));
-            const targetDisplay = document.getElementById(`${mode}-display`);
+            // Update active display.
+            // Note: the envelope tab's data-mode is "envelope" but its
+            // container id is "envelopes-display" (with an "s"), so map
+            // each mode to its real container id explicitly. Without this,
+            // switching to Envelopes activated a non-existent element and
+            // every letter display vanished.
+            const displayIdMap = {
+                envelope: 'envelopes-display',
+                envelopes: 'envelopes-display',
+                cards: 'cards-display',
+                book: 'book-display'
+            };
+            const targetId = displayIdMap[mode] || `${mode}-display`;
+            const targetDisplay = document.getElementById(targetId);
             if (targetDisplay) {
+                displays.forEach(display => display.classList.remove('active'));
                 targetDisplay.classList.add('active');
             }
             
