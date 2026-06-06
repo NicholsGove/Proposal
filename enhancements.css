@@ -540,52 +540,62 @@ body::after {
     position: absolute;
     top: 6px;
     width: 8px; height: 26px;
-    background: #ffdbac;
+    background: #c98a5e;
     border-radius: 6px;
-    box-shadow: inset -2px 0 0 rgba(0,0,0,0.08);
+    box-shadow: inset -2px 0 0 rgba(0,0,0,0.12);
 }
 .character-torso::before { left: -9px; }
 .character-torso::after  { right: -9px; }
 
-/* ---- Hair --------------------------------------------------- */
-/* Character 1 (short, dark hair) */
-.character-1 .character-head::before,
-.floating-char-1 .character-head::before {
+/* ---- Light-brown skin (both characters) -------------------- */
+.character-head,
+.character-1 .character-head, .character-2 .character-head,
+.floating-char-1 .character-head, .floating-char-2 .character-head {
+    background: #c98a5e !important;
+    box-shadow: 4px 0 0 #a9744f, -4px 0 0 #a9744f, 0 4px 0 #a9744f, 0 -4px 0 #a9744f !important;
+}
+
+/* ---- Curly hair (both characters) --------------------------- */
+.character-1 .character-head::before, .character-2 .character-head::before,
+.floating-char-1 .character-head::before, .floating-char-2 .character-head::before {
     content: '';
     position: absolute;
-    top: -7px; left: -3px;
-    width: 66px; height: 19px;
-    background: #241a14;
-    border-radius: 14px 14px 4px 4px;
+    top: -12px; left: 1px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #2e1d12;
+    box-shadow:
+        11px -2px 0 0 #2e1d12,
+        22px  0   0 0 #2e1d12,
+        33px -2px 0 0 #2e1d12,
+        44px  0   0 0 #2e1d12,
+        5px   6px 0 -1px #2e1d12,
+        16px  7px 0 -1px #2e1d12,
+        27px  7px 0 -1px #2e1d12,
+        38px  6px 0 -1px #2e1d12;
     z-index: 3;
 }
-/* Character 2 (auburn fringe + side strands framing the face) */
-.character-2 .character-head::before,
-.floating-char-2 .character-head::before {
-    content: '';
-    position: absolute;
-    top: -8px; left: -5px;
-    width: 70px; height: 21px;
-    background: #6b3a25;
-    border-radius: 18px 18px 8px 8px;
-    z-index: 3;
-}
+/* Character 2: extra curls framing the sides (a little longer/fuller) */
 .character-2 .character-head::after,
 .floating-char-2 .character-head::after {
     content: '';
     position: absolute;
-    top: 4px; left: -6px;
-    width: 8px; height: 34px;
-    background: #5a3120;
-    border-radius: 6px;
-    box-shadow: 70px 0 0 #5a3120;  /* mirrored right-side strand */
+    top: 6px; left: -8px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: #2e1d12;
+    box-shadow:
+        0    13px 0 -1px #2e1d12,
+        64px  0   0  0   #2e1d12,
+        64px 13px 0 -1px #2e1d12;
     z-index: 2;
 }
-/* Character 2 gets a little flared dress */
+
+/* ---- Slim figure for character 2 (thin) -------------------- */
 .character-2 .character-torso,
 .floating-char-2 .character-torso {
-    width: 54px;
-    border-radius: 5px 5px 16px 16px;
+    width: 40px;
+    border-radius: 6px 6px 10px 10px;
 }
 
 /* ============================================================
@@ -652,4 +662,53 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
     .kissing .character-mouth, .floating-char-1.kissing .character-head,
     .floating-char-2.kissing .character-head, .kissing .character-body::before { animation: none !important; }
+}
+
+/* ============================================================
+   📱 MOBILE FIXES
+   The base stylesheet shrinks the head/torso/body on small
+   screens, which knocked the hair, arms and eyes out of place.
+   Instead, keep every part at its true proportion and scale the
+   whole figure down as one unit — and stack the question screen
+   so the navigation buttons can't overlap the card.
+   ============================================================ */
+@media (max-width: 768px) {
+    .character-body  { width: 80px !important; height: 120px !important; }
+    .character-head  { width: 60px !important; height: 50px  !important; }
+    .character-torso { width: 50px !important; height: 40px  !important; }
+    .character-2 .character-torso,
+    .floating-char-2 .character-torso { width: 40px !important; }
+
+    .characters-container {
+        transform: scale(0.72);
+        transform-origin: center bottom;
+    }
+    .floating-characters-container {
+        transform: scale(0.62);
+        transform-origin: bottom left;
+    }
+
+    /* Stack the question screen vertically so nothing overlaps */
+    #question-page {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 16px;
+        padding: 78px 12px 24px !important;
+        overflow-y: auto;
+    }
+    .nav-btn-row {
+        position: static !important;
+        transform: none !important;
+        bottom: auto;
+        width: 100%;
+        margin-top: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .characters-container { transform: scale(0.56); }
+    .floating-characters-container { transform: scale(0.5); transform-origin: bottom left; }
+    .nav-btn-row { gap: 6px; }
+    .love-letters-nav-btn { font-size: 8px !important; padding: 9px 8px !important; }
 }
